@@ -1,0 +1,27 @@
+Company Overview
+
+Visionerds is a technology consulting firm founded in 2020, specializing in AI engineering, software development, and digital transformation services for small and medium businesses. The company operates primarily in South Asia with a growing presence in the Middle East. Our mission is to make advanced technology accessible and practical for businesses that traditionally could not afford enterprise-level solutions.
+
+The company was started by a small team of five engineers who saw a gap in the market for affordable, high-quality AI consulting. Over the past four years, the team has grown to over fifty employees across three offices. We believe in a "build first, theory only as needed" philosophy that we apply both to client work and to how we train new engineers internally.
+
+Refund Policy
+
+Visionerds offers a 30-day money-back guarantee on all consulting packages purchased directly through our website. If a client is not satisfied with the initial discovery phase of a project, they may request a full refund within 30 days of the initial payment. Refunds are not available for custom enterprise contracts that have been individually negotiated, as these agreements have their own separate terms outlined in the signed contract.
+
+To request a refund, clients must submit a written request to billing@visionerds.example along with their invoice number. Refunds are typically processed within 7 to 10 business days and are returned to the original payment method used. Partial refunds may be issued if part of the work has already been delivered and accepted by the client, at the discretion of the account manager.
+
+Internship Program
+
+The Visionerds AI Engineering Internship is a 6-week program designed for students and early-career developers who want hands-on experience with modern AI tools. The program covers prompting techniques, working with LLM APIs, version control with Git, embeddings, vector databases, and retrieval augmented generation. Interns work on real projects under the guidance of senior engineers.
+
+The internship is unpaid but offers a certificate of completion and a letter of recommendation for interns who successfully finish the program. Applications open twice a year, in January and July. Successful applicants are notified within two weeks of the application deadline. There is no minimum GPA requirement, but applicants are expected to have basic programming knowledge, preferably in Python.
+
+Technical Support
+
+For technical issues with any Visionerds product or internal tool, employees and clients can reach the support team through the internal ticketing system or by emailing support@visionerds.example. Standard response time for support tickets is within 24 hours on business days. Critical production issues affecting client systems are treated as high priority and typically receive a response within 2 hours.
+
+The support team operates Monday through Friday, 9 AM to 6 PM local time. Weekend support is only available for enterprise clients with a premium support contract. Non-enterprise clients experiencing weekend issues should submit a ticket which will be addressed first thing Monday morning.
+
+Office Locations
+
+Visionerds currently has three physical offices: the headquarters in Lahore, Pakistan, a smaller satellite office in Karachi, and a newly opened office in Dubai, UAE that focuses on client relations for Middle Eastern accounts. The Lahore office houses most of the engineering and internship program staff. Remote work is supported for most roles, and many employees work in a hybrid arrangement.
