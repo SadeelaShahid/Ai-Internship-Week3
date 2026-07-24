@@ -16,7 +16,6 @@ client_llm = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
-# --- Chunking ---
 def chunk_text(text, chunk_size=100, overlap=20):
     words = text.split()
     chunks = []
@@ -34,7 +33,6 @@ with open("day15/sample_document.txt", "r", encoding="utf-8") as f:
 chunks = chunk_text(document_text, chunk_size=100, overlap=20)
 print(f"{len(chunks)} chunks banay gaye.\n")
 
-# --- Vector Store ---
 chroma_client = chromadb.Client()
 collection = chroma_client.create_collection(name="rag_v2_docs")
 
@@ -47,19 +45,17 @@ def retrieve_top_k(query, k=3):
     results = collection.query(query_embeddings=query_embedding, n_results=k)
     return results['documents'][0]
 
-# --- Conversation Memory (Buffer Style) ---
 MAX_MESSAGES = 8
-conversation_history = []  # list of {"role": "user"/"assistant", "content": ...}
+conversation_history = []
 
 def trim_history():
     global conversation_history
     if len(conversation_history) > MAX_MESSAGES:
         conversation_history = conversation_history[-MAX_MESSAGES:]
 
-# --- Query Rewriting (Day 12 wala) ---
 def rewrite_query(history, new_question):
     if not history:
-        return new_question  # pehla sawal hai, rewrite karne ki zarurat nahi
+        return new_question
     
     history_text = "\n".join([f"{m['role']}: {m['content']}" for m in history])
     
@@ -78,16 +74,13 @@ Rewritten question:"""
     )
     return response.choices[0].message.content.strip()
 
-# --- Main RAG Function ---
 def ask_rag(question):
-    # Step 1: Rewrite karo standalone banane ke liye
+
     standalone_question = rewrite_query(conversation_history, question)
-    
-    # Step 2: Retrieval karo rewritten question se
+
     top_chunks = retrieve_top_k(standalone_question, k=3)
     context = "\n\n".join(top_chunks)
-    
-    # Step 3: Final prompt banao
+
     prompt = f"""Answer the question using ONLY the context below.
 If the answer is not in the context, say "I don't know based on the provided document."
 
@@ -103,15 +96,13 @@ Answer:"""
         messages=[{"role": "user", "content": prompt}]
     )
     answer = response.choices[0].message.content
-    
-    # Step 4: History mein add karo
+
     conversation_history.append({"role": "user", "content": question})
     conversation_history.append({"role": "assistant", "content": answer})
     trim_history()
     
     return answer, standalone_question
 
-# --- CLI Loop ---
 print("Conversational RAG chatbot shuru! 'quit' likh ke exit karo.\n")
 
 while True:

@@ -9,10 +9,9 @@ client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
-SUMMARIZE_THRESHOLD = 6  # jab itne messages ho jayein, purane summarize kar do
-KEEP_RECENT = 2          # summarize karne ke baad, itne recent raw messages rakho
-
-conversation_summary = ""  # shuru mein koi summary nahi
+SUMMARIZE_THRESHOLD = 6
+KEEP_RECENT = 2
+conversation_summary = ""
 
 chat_history = [
     {"role": "system", "content": "You are a helpful assistant. Keep answers short."}
@@ -43,8 +42,7 @@ Summary:"""
     )
     
     new_summary = response.choices[0].message.content.strip()
-    
-    # Agar pehle se summary hai, purani aur nayi ko mila do
+
     if conversation_summary:
         conversation_summary = conversation_summary + " " + new_summary
     else:
@@ -58,13 +56,12 @@ def trim_and_summarize():
     recent_msgs = chat_history[1:]
     
     if len(recent_msgs) > SUMMARIZE_THRESHOLD:
-        # Kitne purane messages summarize karne hain
+
         messages_to_summarize = recent_msgs[:-KEEP_RECENT]
         messages_to_keep = recent_msgs[-KEEP_RECENT:]
         
         summarize_old_messages(messages_to_summarize)
-        
-        # System prompt mein summary bhi daal do
+
         updated_system = {
             "role": "system",
             "content": f"You are a helpful assistant. Keep answers short. Context from earlier in the conversation: {conversation_summary}"

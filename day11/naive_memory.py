@@ -9,7 +9,6 @@ client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
-# Ye list hamari "naive memory" hai - sab kuch isi mein add hota jayega
 chat_history = [
     {"role": "system", "content": "You are a helpful assistant. Keep answers short."}
 ]
@@ -20,21 +19,18 @@ def estimate_tokens(messages):
     return int(total_words * 1.3)
 
 def send_message(user_text):
-    # User ka message history mein add karo
+
     chat_history.append({"role": "user", "content": user_text})
-    
-    # POORI history bhejo model ko - yehi "naive" tareeqa hai
+
     response = client.chat.completions.create(
         model="openrouter/free",
         messages=chat_history
     )
     
     bot_reply = response.choices[0].message.content
-    
-    # Bot ka jawab bhi history mein add karo
+
     chat_history.append({"role": "assistant", "content": bot_reply})
-    
-    # Token count print karo taake dekh sakein ye kitna badh raha hai
+
     tokens = estimate_tokens(chat_history)
     print(f"[Total messages in history: {len(chat_history)} | Estimated tokens: {tokens}]")
     

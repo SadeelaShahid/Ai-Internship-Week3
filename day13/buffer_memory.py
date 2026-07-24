@@ -9,7 +9,7 @@ client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
-MAX_MESSAGES = 8  # sirf aakhri 8 messages (system prompt ke ilawa) yaad rakhenge
+MAX_MESSAGES = 8
 
 chat_history = [
     {"role": "system", "content": "You are a helpful assistant. Keep answers short."}
@@ -23,17 +23,16 @@ def trim_history():
     """Sirf system prompt + aakhri MAX_MESSAGES rakho, purane hata do"""
     global chat_history
     system_msg = chat_history[0]
-    recent_msgs = chat_history[1:]  # system prompt ke bagair baaki sab
+    recent_msgs = chat_history[1:]
     
     if len(recent_msgs) > MAX_MESSAGES:
-        recent_msgs = recent_msgs[-MAX_MESSAGES:]  # sirf aakhri N rakho
+        recent_msgs = recent_msgs[-MAX_MESSAGES:]
     
     chat_history = [system_msg] + recent_msgs
 
 def send_message(user_text):
     chat_history.append({"role": "user", "content": user_text})
-    
-    # Bhejne se pehle history ko trim kar do
+
     trim_history()
     
     response = client.chat.completions.create(
@@ -43,7 +42,7 @@ def send_message(user_text):
     
     bot_reply = response.choices[0].message.content
     chat_history.append({"role": "assistant", "content": bot_reply})
-    trim_history()  # bot ka jawab add karne ke baad bhi trim karo
+    trim_history()
     
     tokens = estimate_tokens(chat_history)
     print(f"[Messages in history: {len(chat_history)} | Estimated tokens: {tokens}]")
